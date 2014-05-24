@@ -1,14 +1,16 @@
-object MusicalLibrary {
+object MusicalLibrary extends Helper {
 
-  def allNotes = 0 until 128
+  final val AllNotes = 0 until 128
 
-  def churchModes: Vector[Scale] = {
-    def majorScale = Vector(2, 2, 1, 2, 2, 2, 1)
-    for ((name, i) <- Vector("Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian").zipWithIndex)
+  final val Chromatic = Scale(Names.Chromatic, 1 to 12 map (_ => 1) toVector)
+
+  final val Modes: Vector[Scale] = {
+    val majorScale = Vector(2, 2, 1, 2, 2, 2, 1)
+    for ((name, i) <- Names.WesternModesMajorScaleOrder.zipWithIndex)
       yield Scale(name, majorScale.slice(i, majorScale.length) ++ majorScale.slice(0, i))
   }
 
-  def arpeggios: Vector[Scale] =
+  final val Arpeggios: Vector[Scale] =
     Scale("Major",            Vector(4, 3, 5))    +:
     Scale("Minor",            Vector(3, 4, 5))    +:
     Scale("Diminished",       Vector(3, 3, 6))    +:
@@ -22,7 +24,7 @@ object MusicalLibrary {
     Scale("Augmented 7",      Vector(4, 4, 2, 2)) +:
     Vector()
 
-  def melodies: Vector[RhythmicDeltaSequence] =
+  final val Melodies: Vector[RhythmicDeltaSequence] =
     RhythmicDeltaSequence("Home Alone",
       Vector(-3, 3, -3, 8, -5, -5, 7, -2, -7, 5, -1, -2, 5, -3, 3, -3, 8, -5, 2, 2, 1, -5, 2, 2, 1, -5, 2, 2, 1, -5, -7, 5, -1, -2, -2 ),
       Vector(2f, 2f, 2f, 2f, 4f, 4f, 2f, 2f, 2f, 1f, 1f, 4f, 4f, 2f, 2f, 2f, 2f, 4f, 6f, 0.5f, 0.5f, 1f, 6f, 0.5f, 0.5f, 1f, 6f, 0.5f, 0.5f, 1f, 2f, 1f, 1f, 4f, 4f, 8f)
@@ -41,40 +43,10 @@ object MusicalLibrary {
     ) +:
     Vector()
 
+  final val CircleOfFifths = DeltaSequence(Names.CircleOfFifths, 1 until 12 map (_ => 7) toVector)
 
+  def churchModesByCircleOfFifths(firstNote: Int) = vectorOfDeltaSequencesModulatedByDeltaSequence(firstNote, Modes, CircleOfFifths)
 
-  def circleOfFifths = DeltaSequence("Circle Of Fifths", 1 to 12 map (_ => 7) toVector)
-
-  def modulateDeltaSequenceByCircleOfFifths(startingNote: Int, deltaSequence: Sequence with Deltas): Vector[Sequence with Notes] = {
-    val modulator = circleOfFifths.toNoteSequence(startingNote).restrictToOneOctave
-    deltaSequence.modulateByNoteSequence(modulator)
-  }
-
-  def vectorOfDeltaSequencesByCircleOfFifths(startingNote: Int, sequences: Vector[Sequence with Deltas]): Map[String, Vector[Sequence with Notes]] = {
-    val tuples = sequences map (s => {
-      (s.name + " by fifths", modulateDeltaSequenceByCircleOfFifths(startingNote, s))
-    })
-    tuples.toMap
-  }
-
-  def rangeExerciseAscByCircleOfFifths(startingNote: Int, scale: Scale, range: Range = allNotes): Vector[Sequence with Notes] = {
-    rangeExerciseByCircleOfFifths(startingNote, scale, range, asc = true)
-  }
-
-  def rangeExerciseDescByCircleOfFifths(startingNote: Int, scale: Scale, range: Range = allNotes): Vector[Sequence with Notes] = {
-    rangeExerciseByCircleOfFifths(startingNote, scale, range, asc = false)
-  }
-
-  private def rangeExerciseByCircleOfFifths(startingNote: Int, scale: Scale, range: Range = allNotes, asc: Boolean): Vector[Sequence with Notes] = {
-    modulateDeltaSequenceByCircleOfFifths(startingNote, scale)
-      .map(seq => {
-        if(asc) Scale(seq.name, seq.toDeltaSequence.sequence).toRangeExerciseAsc(seq.sequence.head, range)
-        else Scale(seq.name, seq.toDeltaSequence.sequence).toRangeExerciseDesc(seq.sequence.head, range)
-      })
-  }
-
-  def churchModesByCircleOfFifths(startingNote: Int) = vectorOfDeltaSequencesByCircleOfFifths(startingNote, churchModes)
-
-  def arpeggiosByCircleOfFifths(startingNote: Int) = vectorOfDeltaSequencesByCircleOfFifths(startingNote, arpeggios)
+  def arpeggiosByCircleOfFifths(firstNote: Int) = vectorOfDeltaSequencesModulatedByDeltaSequence(firstNote, Arpeggios, CircleOfFifths)
 
 }
