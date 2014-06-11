@@ -60,8 +60,7 @@ object MusicalLibrary extends Helper {
       (h1Asc :+ h1J1) ++ h1Desc :+ h1J2
     }
 
-    val notes = Vector(47) ++ Modes(0).toNoteSequence(48) ++ Modes(0).toNoteSequence(60) ++ Modes(0).toNoteSequence(72) // the hanon1 traversal should not get up to the higher end of this note sequence
-    //TODO: should be able to express this as a range of notes 47 to 71 filtered by the set of notes in the Mode "48 Ionian"
+    val notes = Modes(0).toKeyOverRange(48, 47 to 79)
 
     NoteSequence("Hanon1Notes", notes).traverseByDeltaSequence(1, DeltaSequence("", deltas))
   }

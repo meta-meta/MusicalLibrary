@@ -10,15 +10,21 @@ case class Scale(name: String, sequence: Vector[Int]) extends Sequence with Delt
   override def toNoteSequence(firstNote: Int): NoteSequence = NoteSequence(name, getNoteSequence(firstNote).dropRight(1) )
 
   def toRangeExercise(firstNote: Int, range: Range = MusicalLibrary.AllNotes, asc: Boolean = true): NoteSequence = {
-    val n = getNotesInRange(firstNote, range)
+    val n = toKeyOverRange(firstNote, range)
     NoteSequence(name + " Range " + (if(asc) "Ascending" else "Descending"),
       generateRangeExercise(firstNote, if(asc) n else n.reverse)
     )
   }
 
-  private def getNotesInRange(firstNote: Int, range: Range): Vector[Int] = {
+  /**
+   *
+   * @param firstNote
+   * @param range
+   * @return a Vector of notes over range that are contained in this Scale as played starting from firstNote
+   */
+  def toKeyOverRange(firstNote: Int, range: Range): Vector[Int] = {
     val scaleNotes = getNoteSequence(firstNote)
-      .dropRight(1)
+      .dropRight(1) // last note in getNoteSequence is an octave up. that note is redundant in this case so drop it
       .map(_ % 12)
 
     range
