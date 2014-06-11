@@ -49,4 +49,21 @@ object MusicalLibrary extends Helper {
 
   def arpeggiosByCircleOfFifths(firstNote: Int) = vectorOfDeltaSequencesModulatedByDeltaSequence(firstNote, Arpeggios, CircleOfFifths)
 
+  final def Hanon1: Sequence with Notes = {
+
+    def deltas: Vector[Int] = {
+      val h1T = DeltaSequence("hanon1", Vector(2, 1, 1, 1, -1, -1, -1, -1)) // T for "template" do we need another type for a Sequence with Deltas that is unnamed for use as a building block for a DeltaSequence?
+      val h1Asc = (for(n <- 1 to 13) yield h1T).flatten.toVector ++ h1T.slice(0, h1T.length - 1)
+      val h1J1 = 3
+      val h1Desc = (for(n <- 1 to 14) yield h1T.negate).flatten.toVector ++ h1T.negate.slice(0, h1T.length - 1)
+      val h1J2 = -2
+      (h1Asc :+ h1J1) ++ h1Desc :+ h1J2
+    }
+
+    val notes = Vector(47) ++ Modes(0).toNoteSequence(48) ++ Modes(0).toNoteSequence(60) ++ Modes(0).toNoteSequence(72) // the hanon1 traversal should not get up to the higher end of this note sequence
+    //TODO: should be able to express this as a range of notes 47 to 71 filtered by the set of notes in the Mode "48 Ionian"
+
+    NoteSequence("Hanon1Notes", notes).traverseByDeltaSequence(1, DeltaSequence("", deltas))
+  }
+
 }
