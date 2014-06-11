@@ -13,6 +13,10 @@ trait Deltas extends Sequence {
     modulateByNoteSequence(modulator)
   }
 
+  def negate: Sequence with Deltas = {
+    DeltaSequence(name, sequence map (d => -d))
+  }
+
   protected def getNoteSequence(firstNote: Int): Vector[Int] = {
     val noteList = mutable.MutableList(firstNote)
     for (d <- sequence)
