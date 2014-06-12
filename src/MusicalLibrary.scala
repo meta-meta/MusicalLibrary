@@ -79,4 +79,25 @@ object MusicalLibrary extends Helper {
     )
   }
 
+  final val Hanon3: Sequence with Notes = {
+    hanon(
+      Vector(2, 3, -1, -1, -1, 1, 1, -3), 14, 1,
+      Vector(-3, -2, 1, 1, 1, -1, -1, 3), 14, -1
+    )
+  }
+
+  final val Hanon4: Sequence with Notes = {
+    hanon(
+      Vector(1, -1, 2, 3, -1, -1, -1, -1), 14, 3,
+      Vector(-1, 1, -3, -2, 1, 1, 1, 1), 14, -3
+    )
+  }
+
+  final val Hanon5: Sequence with Notes = {
+    hanon(
+      Vector(5, -1, 1, -2, 1, -2, 1, -2), 14, -2,
+      Vector(1, -1, 2, -1, 2, -1, 2, -5), 14, -5
+    )
+  }
+
 }
