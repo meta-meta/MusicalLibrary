@@ -49,20 +49,34 @@ object MusicalLibrary extends Helper {
 
   def arpeggiosByCircleOfFifths(firstNote: Int) = vectorOfDeltaSequencesModulatedByDeltaSequence(firstNote, Arpeggios, CircleOfFifths)
 
-  final def Hanon1: Sequence with Notes = {
 
+  def hanon(ascTemplate: Vector[Int], ascRepetitions: Int, transition1: Int,
+            descTemplate: Vector[Int], descRepetitions: Int, transition2: Int): Sequence with Notes = {
     def deltas: Vector[Int] = {
-      val h1T = DeltaSequence("hanon1", Vector(2, 1, 1, 1, -1, -1, -1, -1)) // T for "template" do we need another type for a Sequence with Deltas that is unnamed for use as a building block for a DeltaSequence?
-      val h1Asc = (for(n <- 1 to 13) yield h1T).flatten.toVector ++ h1T.slice(0, h1T.length - 1)
-      val h1J1 = 3
-      val h1Desc = (for(n <- 1 to 14) yield h1T.negate).flatten.toVector ++ h1T.negate.slice(0, h1T.length - 1)
-      val h1J2 = -2
-      (h1Asc :+ h1J1) ++ h1Desc :+ h1J2
+      def repeatTemplate(rep: Int, t: Vector[Int]) = (1 to rep flatMap (n => t)).dropRight(1).toVector
+      val h1Asc = repeatTemplate(ascRepetitions, ascTemplate)
+      val h1Desc = repeatTemplate(descRepetitions, descTemplate)
+      (h1Asc :+ transition1) ++ (h1Desc :+ transition2)
     }
 
     val notes = Modes(0).toKeyOverRange(48, 47 to 79)
+    NoteSequence("HanonNotes", notes).traverseByDeltaSequence(1, DeltaSequence("HanonDeltas", deltas))
+  }
 
-    NoteSequence("Hanon1Notes", notes).traverseByDeltaSequence(1, DeltaSequence("", deltas))
+  final val Hanon1: Sequence with Notes = {
+    val h1T = Vector(2, 1, 1, 1, -1, -1, -1, -1)
+
+    hanon(
+      h1T, 14, 3,
+      DeltaSequence("", h1T).negate, 15, -2
+    )
+  }
+
+  final val Hanon2: Sequence with Notes = {
+    hanon(
+      Vector(2, 3, -1, -1, 1, -1, -1, -1), 14, 3,
+      Vector(-3, -2, 1, 1, -1, 1, 1, 1), 14, -3
+    )
   }
 
 }
