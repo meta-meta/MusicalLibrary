@@ -26,7 +26,7 @@ case class Scale(name: String, sequence: Vector[Int]) extends Sequence with Delt
       .dropRight(1) // last note in getNoteSequence is an octave up. that note is redundant in this case so drop it
       .map(_ % 12)
 
-    Key(NoteSequence("KeyOf" + firstNote + name, scaleNotes))
+    Key(NoteSequence("KeyOf" + (firstNote % 12) + name, scaleNotes))
   }
 
   private def generateRangeExercise(firstNote: Int, notes: Vector[Int]) = {
