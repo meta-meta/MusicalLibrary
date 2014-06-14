@@ -59,8 +59,10 @@ object MusicalLibrary extends Helper {
       (h1Asc :+ transition1) ++ (h1Desc :+ transition2)
     }
 
-    val notes = Modes(0).toKeyOverRange(48, 47 to 79)
-    NoteSequence("HanonNotes", notes).traverseByDeltaSequence(1, DeltaSequence("HanonDeltas", deltas))
+    Modes(0) //TODO: this should be a parameter
+      .toKey(0)
+      .traverseByDeltaSequence(48, DeltaSequence("HanonDeltas", deltas))
+
   }
 
   final val Hanon1: Sequence with Notes = {

@@ -10,7 +10,7 @@ case class Scale(name: String, sequence: Vector[Int]) extends Sequence with Delt
   override def toNoteSequence(firstNote: Int): NoteSequence = NoteSequence(name, getNoteSequence(firstNote).dropRight(1) )
 
   def toRangeExercise(firstNote: Int, range: Range = MusicalLibrary.AllNotes, asc: Boolean = true): NoteSequence = {
-    val n = toKeyOverRange(firstNote, range)
+    val n = toKey(firstNote).range(range)
     NoteSequence(name + " Range " + (if(asc) "Ascending" else "Descending"),
       generateRangeExercise(firstNote, if(asc) n else n.reverse)
     )
@@ -18,18 +18,15 @@ case class Scale(name: String, sequence: Vector[Int]) extends Sequence with Delt
 
   /**
    *
-   * @param firstNote
-   * @param range
-   * @return a Vector of notes over range that are contained in this Scale as played starting from firstNote
+   * @param firstNote - the "tonic"
+   * @return a Key consisting of pitch classes contained in this Scale
    */
-  def toKeyOverRange(firstNote: Int, range: Range): Vector[Int] = {
+  def toKey(firstNote: Int): Key = {
     val scaleNotes = getNoteSequence(firstNote)
       .dropRight(1) // last note in getNoteSequence is an octave up. that note is redundant in this case so drop it
       .map(_ % 12)
 
-    range
-      .filter(n => scaleNotes.contains(n % 12))
-      .toVector
+    Key(NoteSequence("KeyOf" + firstNote + name, scaleNotes))
   }
 
   private def generateRangeExercise(firstNote: Int, notes: Vector[Int]) = {
