@@ -21,7 +21,7 @@ case class Scale(name: String, sequence: Vector[Int]) extends Sequence with Delt
    * @param firstNote - the "tonic"
    * @return a Key consisting of pitch classes contained in this Scale
    */
-  def toKey(firstNote: Int): Key = {
+  def toKey(firstNote: Int = 0): Key = {
     val scaleNotes = getNoteSequence(firstNote)
       .dropRight(1) // last note in getNoteSequence is an octave up. that note is redundant in this case so drop it
       .map(_ % 12)

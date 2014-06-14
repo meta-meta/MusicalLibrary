@@ -50,56 +50,109 @@ object MusicalLibrary extends Helper {
   def arpeggiosByCircleOfFifths(firstNote: Int) = vectorOfDeltaSequencesModulatedByDeltaSequence(firstNote, Arpeggios, CircleOfFifths)
 
 
-  def hanon(ascTemplate: Vector[Int], ascRepetitions: Int, transition1: Int,
+  def hanon(key: Key, startingNote: Int,
+            ascTemplate: Vector[Int], ascRepetitions: Int, transition1: Int,
             descTemplate: Vector[Int], descRepetitions: Int, transition2: Int): Sequence with Notes = {
     def deltas: Vector[Int] = {
       def repeatTemplate(rep: Int, t: Vector[Int]) = (1 to rep flatMap (n => t)).dropRight(1).toVector
-      val h1Asc = repeatTemplate(ascRepetitions, ascTemplate)
-      val h1Desc = repeatTemplate(descRepetitions, descTemplate)
-      (h1Asc :+ transition1) ++ (h1Desc :+ transition2)
+      val deltasAsc = repeatTemplate(ascRepetitions, ascTemplate)
+      val deltasDesc = repeatTemplate(descRepetitions, descTemplate)
+      (deltasAsc :+ transition1) ++ (deltasDesc :+ transition2)
     }
 
-    Modes(0) //TODO: this should be a parameter
-      .toKey(0)
-      .traverseByDeltaSequence(48, DeltaSequence("HanonDeltas", deltas))
-
-  }
+    key.traverseByDeltaSequence(startingNote, DeltaSequence("HanonDeltas", deltas))
+  } // another way to express this is modulating a scale by h1Asc and h1Desc
 
   final val Hanon1: Sequence with Notes = {
     val h1T = Vector(2, 1, 1, 1, -1, -1, -1, -1)
 
-    hanon(
-      h1T, 14, 3,
-      DeltaSequence("", h1T).negate, 15, -2
+    hanon(Modes(0).toKey(), 48,
+          h1T, 14, 3,
+          DeltaSequence("", h1T).negate, 15, -2
     )
   }
 
   final val Hanon2: Sequence with Notes = {
-    hanon(
-      Vector(2, 3, -1, -1, 1, -1, -1, -1), 14, 3,
-      Vector(-3, -2, 1, 1, -1, 1, 1, 1), 14, -3
+    hanon(Modes(0).toKey(), 48,
+          Vector(2, 3, -1, -1, 1, -1, -1, -1), 14, 3,
+          Vector(-3, -2, 1, 1, -1, 1, 1, 1), 14, -3
     )
   }
 
   final val Hanon3: Sequence with Notes = {
-    hanon(
-      Vector(2, 3, -1, -1, -1, 1, 1, -3), 14, 1,
-      Vector(-3, -2, 1, 1, 1, -1, -1, 3), 14, -1
+    hanon(Modes(0).toKey(), 48,
+          Vector(2, 3, -1, -1, -1, 1, 1, -3), 14, 1,
+          Vector(-3, -2, 1, 1, 1, -1, -1, 3), 14, -1
     )
   }
 
   final val Hanon4: Sequence with Notes = {
-    hanon(
-      Vector(1, -1, 2, 3, -1, -1, -1, -1), 14, 3,
-      Vector(-1, 1, -3, -2, 1, 1, 1, 1), 14, -3
+    hanon(Modes(0).toKey(), 48,
+          Vector(1, -1, 2, 3, -1, -1, -1, -1), 14, 3,
+          Vector(-1, 1, -3, -2, 1, 1, 1, 1), 14, -3
     )
   }
 
   final val Hanon5: Sequence with Notes = {
-    hanon(
-      Vector(5, -1, 1, -2, 1, -2, 1, -2), 14, -2,
-      Vector(1, -1, 2, -1, 2, -1, 2, -5), 14, -5
+    hanon(Modes(0).toKey(), 48,
+          Vector(5, -1, 1, -2, 1, -2, 1, -2), 14, -2,
+          Vector(1, -1, 2, -1, 2, -1, 2, -5), 14, -5
     )
   }
 
+  final val Hanon6: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+          Vector(5, -1, 1, -2, 2, -3, 3, -4), 14, 5,
+          Vector(-5, 1, -1, 2, -2, 3, -3, 4), 14, -2 //negate
+    )
+  } //TODO: the final measure in this exercise varies from the rest
+
+  final val Hanon7: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+          Vector(2, -1, 2, -1, 2, -1, -1, -1), 14, 3,
+          Vector(-2, 1, -2, 1, -2, 1, 1, 1), 14, -3 //negate
+    )
+  }
+
+  final val Hanon8: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+          Vector(2, 2, 1, -2, 1, -2, 1, -2), 14, 2,
+          Vector(-2, -2, -1, 2, -1, 2, -1, 2), 14, -2 //negate
+    )
+  }
+
+  final val Hanon9: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+          Vector(2, 1, -1, 2, -1, 2, -1, -3), 14, 1,
+          Vector(-2, -1, 1, -2, 1, -2, 1, 3), 14, -2 //negate
+    ) //TODO: the final measure in this exercise varies from the rest
+  }
+
+  final val Hanon10: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+          Vector(5, -1, -1, -1, 1, -1, 1, -2), 14, 2,
+          Vector(-5, 1, 1, 1, -1, 1, -1, 2), 14, -2 //negate
+    )
+  }
+
+  final val Hanon11: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+          Vector(2, 3, -1, 1, -1, -1, 1, -3), 14, 1,
+          Vector(-3, -2, 1, -1, 1, 1, -1, 3), 14, -1 //negate
+    )
+  }
+
+  final val Hanon12: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 55,
+          Vector(-4, 2, -1, -1, 1, 1, -2, 6), 14, -3,
+          Vector(4, -2, 1, 1, -1, -1, 2, -6), 15, -3 //negate
+    ) //TODO: the final measure in this exercise varies from the rest
+  }
+
+  final val Hanon13: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 52,
+          Vector(-2, 3, -2, 3, -2, 1, 1, -1), 14, -1,
+          Vector(2, -3, 2, -1, -2, 1, 1, -1), 14, -3 //negate
+    )
+  }
 }
