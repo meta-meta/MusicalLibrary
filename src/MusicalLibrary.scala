@@ -155,4 +155,60 @@ object MusicalLibrary extends Helper {
           Vector(2, -3, 2, -1, -2, 1, 1, -1), 14, -3 //negate
     )
   }
+
+  final val Hanon14: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+      Vector(1, 2, -1, 1, -1, 2, -1, -2), 14, 2,
+      Vector(-1, -2, 1, -1, 1, -2, 1, 2), 14, -2 //negate
+    )
+  }
+
+  final val Hanon15: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+      Vector(2, -1, 2, -1, 2, -1, 2, -4), 14, 1,
+      Vector(-2, 1, -2, 1, -2, 1, -2, 4), 14, -1 //negate
+    ) //TODO: the final measure in this exercise varies from the rest
+  }
+
+  final val Hanon16: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+      Vector(2, -1, 1, 3, -1, -1, 1, -3), 14, 1,
+      Vector(-3, 1, -1, -2, 1, 1, -1, 3), 14, -1
+    )
+  }
+
+  final val Hanon17: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+      Vector(2, 3, -1, 2, -1, -1, 1, -4), 14, 2,
+      Vector(-3, -2, 1, -2, 1, 1, -2, 5), 13, -1
+    ) //TODO: the final measure in this exercise varies from the rest
+  }
+
+  final val Hanon18: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+      Vector(1, 2, -1, 2, -1, -2, 1, -1), 14, 3,
+      Vector(-1, -2, 1, -2, 1, 2, -1, 1), 14, -3 //negate
+    )
+  }
+
+  final val Hanon19: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 48,
+      Vector(5, -2, 1, 1, -2, -1, 2, -3), 14, 1,
+      Vector(-5, 2, -1, -1, 2, 1, -2, 3), 14, -1 //negate
+    )
+  }
+
+  final val Hanon20: Sequence with Notes = {
+    hanon(Modes(0).toKey(), 52,
+      Vector(2, 3, 2, -2, -1, 1, -2, -2), 14, 5,
+      Vector(-2, -3, -2, 2, -1, 1, -2, 6), 15, -1
+    )
+  }
+
+  final val HanonPart1: Vector[Sequence with Notes] = Vector(
+    Hanon1, Hanon2, Hanon3, Hanon4, Hanon5,
+    Hanon6, Hanon7, Hanon8, Hanon9, Hanon10,
+    Hanon11, Hanon12, Hanon13, Hanon14, Hanon15,
+    Hanon16, Hanon17, Hanon18, Hanon19, Hanon20
+  )
 }
