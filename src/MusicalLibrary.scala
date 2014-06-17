@@ -4,10 +4,17 @@ object MusicalLibrary extends Helper {
 
   final val Chromatic = Scale(Names.Chromatic, 1 to 12 map (_ => 1) toVector)
 
+  final val Diatonic = Scale(Names.Diatonic, Vector(2, 2, 1, 2, 2, 2, 1))
+
+  final val Pentatonic = Scale(Names.Pentatonic, Vector(3, 2, 3, 2, 2))
+
+  final val WholeTone = Scale(Names.WholeTone, Vector(2, 2, 2, 2, 2, 2))
+
+  final val Octatonic = Scale(Names.Octatonic, Vector(1, 2, 1, 2, 1, 2, 1, 2))
+
   final val Modes: Vector[Scale] = {
-    val majorScale = Vector(2, 2, 1, 2, 2, 2, 1)
     for ((name, i) <- Names.WesternModesMajorScaleOrder.zipWithIndex)
-      yield Scale(name, majorScale.slice(i, majorScale.length) ++ majorScale.slice(0, i))
+      yield Scale(name, Diatonic.slice(i, Diatonic.length) ++ Diatonic.slice(0, i))
   }
 
   final val Arpeggios: Vector[Scale] =
@@ -211,4 +218,6 @@ object MusicalLibrary extends Helper {
     Hanon11, Hanon12, Hanon13, Hanon14, Hanon15,
     Hanon16, Hanon17, Hanon18, Hanon19, Hanon20
   )
+
+  //TODO: Friedmann Appendix 1 Group 1-3 (solo instrument)
 }

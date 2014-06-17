@@ -1,5 +1,9 @@
 object Names {
   final val Chromatic = "Chromatic"
+  final val Diatonic = "Diatonic"
+  final val Pentatonic = "Pentatonic"
+  final val WholeTone = "WholeTone"
+  final val Octatonic = "Octatonic"
 
   final val Ionian = "Ionian"
   final val Dorian = "Dorian"
