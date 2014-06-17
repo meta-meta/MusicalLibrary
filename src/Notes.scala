@@ -25,7 +25,6 @@ trait Notes extends Sequence {
     var i = startingIndex
     val seq = Vector(sequence(i)) ++
       (deltaSequence.sequence map (d => {
-        println(i)
         i += d
         sequence(i)
       }))
