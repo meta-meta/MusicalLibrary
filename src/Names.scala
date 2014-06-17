@@ -17,4 +17,19 @@ object Names {
   final val WesternModesBrightToDarkOrder = Vector(Lydian, Ionian, Mixolydian, Dorian, Aeolian, Phrygian, Locrian)
 
   final val CircleOfFifths = "Circle Of Fifths"
+
+  final val Oh = "oh"
+  final val One = "one"
+  final val Two = "two"
+  final val Three = "three"
+  final val Four = "four"
+  final val Five = "five"
+  final val Six = "six"
+  final val Sev = "sev"
+  final val Eight = "eight"
+  final val Nine = "nine"
+  final val Ten = "ten"
+  final val El = "el"
+
+  final val PitchClasses = Vector(Oh, One, Two, Three, Four, Five, Six, Sev, Eight, Nine, Ten, El)
 }
