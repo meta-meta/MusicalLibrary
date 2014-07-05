@@ -220,4 +220,38 @@ object MusicalLibrary extends Helper with Hanon{
   )
 
   //TODO: Friedmann Appendix 1 Group 1-3 (solo instrument)
+  final val Freidmann1 = {
+    val deltas = DeltaSequence("", Vector(1, 1, 1, -1, -1, -1, -1, 0, 1,
+                                          0, 1, 1, 1, -1, -1, -1, -1, 0, 1,
+                                          0, 1, 1, 1, -1, -1, -1, -1, 0, 1, 0,
+                                          0, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1))
+
+    // bpm: Q = 116
+    val rhythm = Vector(S, S, E, S, S, S, S, E, E, Q,
+                        S, S, S, S, E, S, S, E, E, Q,
+                        S, S, E, S, S, S, S, E, E, E, E,
+                        S, S, S, S, S, S, S, S, E, E, Q)
+
+    RhythmicNoteSequence(
+      "Stravinsky, Petrouchka, \"Danse russe,\" mm. 1-8, flute",
+      KeyOfC.traverseByDeltaSequence(83, deltas),
+      rhythm
+    )
+  }
+
+  //TODO: figure out how to notate rests. one option could be subclassing Int to treat a designated number as a rest. operators would have to be overridden
+
+  final val Freidmann2 = {
+    val deltas = DeltaSequence("", Vector(0/*rest*/, 1, 1, 0/*rest*/, 1, -1, -1, -1, -2, 3, -2))
+
+    // bpm: Q = 44
+    val rhythm = Vector(Q/*rest*/, H, E, E, Q/*rest*/, Q, Qtrip, Qtrip, Qtrip, H/*quarters tied*/, Q, H)
+
+    RhythmicNoteSequence(
+      "Debussy, Preludes for Piano, book 1, no. 6, \"Footsteps in the Snow,\" mm. 2-5",
+      KeyOfF.traverseByDeltaSequence(70, deltas),
+      rhythm
+    )
+  }
+
 }
