@@ -12,6 +12,19 @@ object MusicalLibrary extends Helper with Hanon{
 
   final val Octatonic = Scale(Names.Octatonic, Vector(1, 2, 1, 2, 1, 2, 1, 2))
 
+  final val KeyOfC  = Diatonic.toKey(0)
+  final val KeyOfDb = Diatonic.toKey(1)
+  final val KeyOfD  = Diatonic.toKey(2)
+  final val KeyOfEb = Diatonic.toKey(3)
+  final val KeyOfE  = Diatonic.toKey(4)
+  final val KeyOfF  = Diatonic.toKey(5)
+  final val KeyOfFs = Diatonic.toKey(6)
+  final val KeyOfG  = Diatonic.toKey(7)
+  final val KeyOfAb = Diatonic.toKey(8)
+  final val KeyOfA  = Diatonic.toKey(9)
+  final val KeyOfBb = Diatonic.toKey(10)
+  final val KeyOfB  = Diatonic.toKey(11)
+
   final val Modes: Vector[Scale] = {
     for ((name, i) <- Names.WesternModesMajorScaleOrder.zipWithIndex)
       yield Scale(name, Diatonic.slice(i, Diatonic.length) ++ Diatonic.slice(0, i))
