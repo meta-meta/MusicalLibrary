@@ -1,3 +1,7 @@
+package com.generalprocessingunit.music
+
+import com.generalprocessingunit.music.NoteName.{Accidental, NoteLetter}
+
 object MusicalLibrary extends Helper with Hanon{
 
   final val AllNotes = 0 until 128
@@ -51,7 +55,7 @@ object MusicalLibrary extends Helper with Hanon{
     ) +:
     RhythmicDeltaSequence("Jurassic Park",
       Vector(-1, 1, -5, -2, 7, -1, 1, -5, -2, 7, -1, 1, 2, 0, 3, 0),
-      Vector(1f, 1f, 2f, 2f, 2f, 1f, 1f, 2f, 2f, 2f, 1f, 1f, 3f, 1f, 3f, 1f, 3f)
+      Vector(.5f, .5f, 1f, 1f, 1f, .5f, .5f, 1f, 1f, 1f, .5f, .5f, 1.5f, .5f, 1.5f, .5f, 4f)
     ) +:
     RhythmicDeltaSequence("Close Encounters",
       Vector(2, -4, -12, 7),
@@ -245,7 +249,7 @@ object MusicalLibrary extends Helper with Hanon{
     val deltas = DeltaSequence("", Vector(0/*rest*/, 1, 1, 0/*rest*/, 1, -1, -1, -1, -2, 3, -2))
 
     // bpm: Q = 44
-    val rhythm = Vector(Q/*rest*/, H, E, E, Q/*rest*/, Q, Qtrip, Qtrip, Qtrip, H/*quarters tied*/, Q, H)
+    val rhythm = Vector(Q/*rest*/, H, E, E, Q/*rest*/, Q, Q3, Q3, Q3, H/*quarters tied*/, Q, H)
 
     RhythmicNoteSequence(
       "Debussy, Preludes for Piano, book 1, no. 6, \"Footsteps in the Snow,\" mm. 2-5",

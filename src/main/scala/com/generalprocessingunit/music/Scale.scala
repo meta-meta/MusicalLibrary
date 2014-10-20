@@ -1,3 +1,5 @@
+package com.generalprocessingunit.music
+
 /**
  * A Scale is defined as strictly an ascending DeltaSequence whose deltas total an octave
  * @param name

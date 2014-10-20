@@ -1,3 +1,5 @@
+package com.generalprocessingunit.music
+
 abstract class Sequence {
   def name: String
 

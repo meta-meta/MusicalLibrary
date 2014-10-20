@@ -1,3 +1,5 @@
+package com.generalprocessingunit.music
+
 import scala.collection.mutable
 
 trait Notes extends Sequence {

@@ -1,3 +1,5 @@
+package com.generalprocessingunit.music
+
 case class RhythmicDeltaSequence(name: String, sequence: Vector[Int], rhythm: Vector[Float])
   extends Sequence with Rhythmic with Deltas {
 

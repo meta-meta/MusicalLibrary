@@ -1,3 +1,5 @@
+package com.generalprocessingunit.music
+
 object Names {
   final val Chromatic = "Chromatic"
   final val Diatonic = "Diatonic"

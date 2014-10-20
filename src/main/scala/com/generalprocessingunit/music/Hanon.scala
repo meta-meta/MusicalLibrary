@@ -1,3 +1,5 @@
+package com.generalprocessingunit.music
+
 trait Hanon {
   protected def hanon(key: Key, startingNote: Int,
             ascTemplate: Vector[Int], ascRepetitions: Int, transition1: Int,
