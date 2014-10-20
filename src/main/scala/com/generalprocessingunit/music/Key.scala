@@ -1,9 +1,8 @@
 package com.generalprocessingunit.music
 
 import com.generalprocessingunit.music.MusicalLibrary._
-import com.generalprocessingunit.music.NoteName.{Accidental, NoteLetter}
-import com.generalprocessingunit.music.NoteName.NoteLetter._
-import com.generalprocessingunit.music.NoteName.Accidental._
+import com.generalprocessingunit.music.NoteLetter.NoteLetter
+import com.generalprocessingunit.music.Accidental.Accidental
 
 /**
  * A Key is an ordered(for now) set of notes over the full range of notes that fall in the pitch classes contained in generatingSequence.
@@ -26,6 +25,8 @@ case class Key(generatingSequence: Sequence with Notes) extends Sequence with No
     NoteSequence(name, sequence.filter(n => range contains n))
   }
 
+  def isNoteInKey(n: Int): Boolean = sequence.contains(n)
+
   /**
    * Note Names only make sense within the conext of a Key
    * @return all notes in this key with their proper names
@@ -44,7 +45,7 @@ case class Key(generatingSequence: Sequence with Notes) extends Sequence with No
 
     // 0, 2, 4, 5, 7, 9, 11 => C, D, E, F, G, A, B
     val numbersToLetters = (0 to 6 map (n => {
-      (scale(n) % 12, NoteName.NoteLetter((n + tonicName.letter.id) % 7))
+      (scale(n) % 12, NoteLetter((n + tonicName.letter.id) % 7))
     })).toMap
 
     def getAccidental(noteLetter: NoteLetter, noteNumber: Int): Accidental = {
