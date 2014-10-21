@@ -1,6 +1,5 @@
 package com.generalprocessingunit.music
 
-import com.generalprocessingunit.music.NoteName.{Accidental, NoteLetter}
 
 object MusicalLibrary extends Helper with Hanon{
 

@@ -27,6 +27,15 @@ case class Key(generatingSequence: Sequence with Notes) extends Sequence with No
 
   def isNoteInKey(n: Int): Boolean = sequence.contains(n)
 
+  def sharpsAndFlats(): Vector[NoteName] = {
+    (0 to 11)
+      .filter(n => isNoteInKey(n))
+      .map(n => getNoteName(n))
+      .filter(nn => nn.accidental != Accidental.Natural)
+      .toVector
+    //TODO: order according to circle of fifths
+  }
+
   /**
    * Note Names only make sense within the conext of a Key
    * @return all notes in this key with their proper names
@@ -34,6 +43,10 @@ case class Key(generatingSequence: Sequence with Notes) extends Sequence with No
   def toNoteNames: Vector[NoteName] = sequence map (n => getNoteName(n))
 
   def getNoteName(n: Int): NoteName = chromaticNoteNames.getOrElse(n, NoteName.default)
+
+  def getNoteNum(n: NoteName): Int = {
+    (noteLetterToNumber(n.letter) + Accidental.numberValue(n.accidental)) + 12 * n.octave
+  }
 
   /**
    *

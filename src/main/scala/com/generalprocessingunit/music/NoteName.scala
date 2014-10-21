@@ -21,4 +21,10 @@ object NoteLetter extends Enumeration {
 object Accidental extends Enumeration {
   type Accidental = Value
   val Natural, Flat, Sharp = Value
+
+  def numberValue(a: Accidental) = a match {
+    case Flat => -1
+    case Sharp => 1
+    case Natural => 0
+  }
 }
