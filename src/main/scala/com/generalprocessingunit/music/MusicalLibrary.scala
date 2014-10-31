@@ -5,6 +5,8 @@ object MusicalLibrary extends Helper with Hanon{
 
   final val AllNotes = 0 until 128
 
+  final val EwiRange = 34 to 99
+
   final val Chromatic = Scale(Names.Chromatic, 1 to 12 map (_ => 1) toVector)
 
   final val Diatonic = Scale(Names.Diatonic, Vector(2, 2, 1, 2, 2, 2, 1))
