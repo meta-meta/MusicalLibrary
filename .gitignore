@@ -1,14 +1,15 @@
+.idea
+.gradle
+*.iml
+build
+
 *.class
+out
 
 # Package Files #
 *.jar
 *.war
 *.ear
-classes
-bin
-out
+*.log
 
-.idea/workspace.xml
-.idea/tasks.xml
-
-target
+!gradle/wrapper/gradle-wrapper.jar
