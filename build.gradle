@@ -38,15 +38,6 @@ idea {
 	}
 }
 
-compileScala {
-    scalaCompileOptions.useCompileDaemon = true
-
-    // optionally specify host and port of the daemon:
-    //scalaCompileOptions.daemonServer = "localhost:4243"
-
-    //Note that fsc expects to be restarted whenever the contents of its compile class path change. (It does detect changes to the compile class path itself.) This makes it less suitable for multi-project builds.
-}
-
 def cloneRepo(repo) {
 	def cloneTo = file(repo.cloneTo)
 
